@@ -1,0 +1,158 @@
+{
+    "name": "InputMaster",
+    "maps": [
+        {
+            "name": "Movement",
+            "id": "0d715668-5d83-4345-ac7a-66bbaf15a0df",
+            "actions": [
+                {
+                    "name": "walking",
+                    "type": "Button",
+                    "id": "1f5649ac-5070-4f86-866f-00e4b4b9528a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "sprinting",
+                    "type": "Button",
+                    "id": "87266002-436c-434a-a1e9-fb81799786df",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "jumping",
+                    "type": "Button",
+                    "id": "b2c52df7-f07d-43dc-8cdd-80bb59d48e61",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f9f7bd74-8a25-4ae4-8650-1c708bcfab1a",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5052de7-3f6e-4547-a180-86b20353bdb5",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3856a6ea-0332-434d-a72c-0f52a6c5b7cf",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3809572c-2db5-45d6-b183-147580440736",
+                    "path": "<Keyboard>/d",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e859e513-cbe5-4edd-b3cc-98aa56efe198",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "sprinting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9365121c-bf88-4e10-b90e-c4e3ea5f5ee8",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "jumping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "7c1790f9-a51b-4114-bc13-6415a6c67d2d",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "6826f542-7421-4730-ab53-e1b790fd8ff6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c30a0048-edaa-43f1-ae19-db2c4850c1cc",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Combat",
+            "id": "fd3b3637-cecb-4ba1-b4b9-ad120f21f61d",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "1b08fec1-b4ee-4b8f-a68b-84bbd955aeb6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1b2e664e-ddea-40c7-84a2-2d008b3c36e5",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

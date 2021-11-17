@@ -4,32 +4,144 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Objects
+    public GameObject Player;
     public CharacterController controller;
     public Transform cam;
-    public float speed = 6f;
-    public float turnSmoothTime = 0.1f;
+
+    #endregion
+    #region Movement Vars
+    public float movementSpeed = 3f;
+    public float sprintSpeed;
+    public float sprintModifier = 2.3f;
+    public float jumpheight = 20f;
+    float jumpForce;
+    float speedModifier;
+    float turnSmoothTime = 0.1f;
+    public Vector3 playerMovementVector;
     float turnSmoothVelocity;
+    #endregion
+    #region Gravity Vars
+
+    public float setGravity;
+    public float setTerminalVelocity;
+    float gravity;
+    float currentGravity;
+    float constantGravity;
+    float maxGravity;
+    private Vector3 gravityDirection;
+    private Vector3 gravityMovementVector;
+    #endregion
+
+
+    #region Awake and Start
+    private void Awake()
+    {
+        gravityDirection = Vector3.down;
+    }
     // Start is called before the first frame update
     void Start()
     {
-       
+        setGravity = 50;
+        setTerminalVelocity = 150;
+        speedModifier = movementSpeed;
+        sprintSpeed = movementSpeed * sprintModifier;
     }
+    #endregion
 
+    #region Update
     // Update is called once per frame
     void Update()
     {
+        
+        
+        Movement();
+        CalculateGravity();
+        Jumping();
+        
+    }
+    #endregion
+
+    
+    #region movement
+    public void Movement()
+    {
+        
+        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        if(direction.magnitude >= 0.1f)
+        speedModifier = movementSpeed;
+        sprintSpeed = movementSpeed * sprintModifier;
+
+        if (direction.magnitude >= 0.1f)
         {
+            
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f,angle,0f);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speedModifier = sprintSpeed;
+            }
+            else
+            {
+                speedModifier = movementSpeed;
+            }
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            playerMovementVector = moveDir * speedModifier * Time.deltaTime;
+        }
+        if (direction.magnitude < 0.1f)
+        {
+            playerMovementVector = new Vector3(0f, 0f, 0f);
+        }
+
+        controller.Move(playerMovementVector + gravityMovementVector);
+    }
+    #endregion
+
+    #region Jumping
+    public void Jumping()
+    {
+        jumpForce = jumpheight / setGravity;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            //add the jump force
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Debug.Log("jumpin has stoppeth");
         }
     }
+
+
+    #endregion
+
+    #region gravity
+    private bool IsGrounded()
+    {
+        return controller.isGrounded;
+    }
+    private void CalculateGravity()
+    {
+        gravity = setGravity / 1000;
+        constantGravity = gravity * -1;
+        maxGravity = setTerminalVelocity / 1000 * -1;
+
+        if (IsGrounded())
+        {
+            currentGravity = constantGravity;
+        }
+        else
+        {
+            if(currentGravity > maxGravity)
+            {
+                currentGravity -= gravity * Time.deltaTime;
+            }
+        }
+        gravityMovementVector = gravityDirection * -currentGravity;
+    }
+    #endregion
 }
