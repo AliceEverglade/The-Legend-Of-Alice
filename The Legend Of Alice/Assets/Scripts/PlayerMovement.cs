@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject Player;
     public CharacterController controller;
     public Transform cam;
+    private InputMaster InputMaster;
+    private InputAction walking;
 
     #endregion
     #region Movement Vars
@@ -37,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     #region Awake and Start
     private void Awake()
     {
+        InputMaster = new InputMaster();
         gravityDirection = Vector3.down;
     }
     // Start is called before the first frame update
@@ -46,30 +50,48 @@ public class PlayerMovement : MonoBehaviour
         setTerminalVelocity = 150;
         speedModifier = movementSpeed;
         sprintSpeed = movementSpeed * sprintModifier;
+        
     }
     #endregion
+
+    #region Enable and Disable
+    private void OnEnable()
+    {
+        walking = InputMaster.Player.walking;
+        walking.Enable();
+
+        InputMaster.Player.jumping.performed += Jumping;
+        InputMaster.Player.jumping.Enable();
+    }
+    private void OnDisable()
+    {
+        walking.Disable();
+        InputMaster.Player.jumping.Disable();
+    }
+
+    #endregion
+
+
 
     #region Update
     // Update is called once per frame
     void Update()
     {
-        
-        
-        Movement();
+        MovementUpdate();
         CalculateGravity();
-        Jumping();
         
     }
     #endregion
 
     
     #region movement
-    public void Movement()
+    public void MovementUpdate()
     {
-        
-        
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+
+        Vector2 movementAction = walking.ReadValue<Vector2>();
+
+        float horizontal = movementAction.x;
+        float vertical = movementAction.y;
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         speedModifier = movementSpeed;
@@ -81,14 +103,14 @@ public class PlayerMovement : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            if (Input.GetKey(KeyCode.LeftShift))
+            /*if (Input.GetKey(KeyCode.LeftShift))
             {
                 speedModifier = sprintSpeed;
             }
             else
             {
                 speedModifier = movementSpeed;
-            }
+            }*/
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             playerMovementVector = moveDir * speedModifier * Time.deltaTime;
@@ -103,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Jumping
-    public void Jumping()
+    private void Jumping(InputAction.CallbackContext obj)
     {
         jumpForce = jumpheight / setGravity;
         if (Input.GetKey(KeyCode.Space))

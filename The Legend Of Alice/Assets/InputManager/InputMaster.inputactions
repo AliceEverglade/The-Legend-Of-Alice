@@ -2,7 +2,7 @@
     "name": "InputMaster",
     "maps": [
         {
-            "name": "Movement",
+            "name": "Player",
             "id": "0d715668-5d83-4345-ac7a-66bbaf15a0df",
             "actions": [
                 {
@@ -32,67 +32,89 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "f9f7bd74-8a25-4ae4-8650-1c708bcfab1a",
+                    "name": "1D Axis",
+                    "id": "b675afdf-69ff-4eb0-8dc2-c5c2cd2b1a0d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walking",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WASD",
+                    "id": "d39b4ecc-a1a9-4f66-ad3e-d2be7dbf2504",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walking",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "12795aa4-67d3-42a6-8a50-a2f8502d73aa",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard and Mouse",
                     "action": "walking",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "e5052de7-3f6e-4547-a180-86b20353bdb5",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "walking",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3856a6ea-0332-434d-a72c-0f52a6c5b7cf",
+                    "name": "down",
+                    "id": "d5e07b56-6652-4e2c-9960-568a0c151592",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard and Mouse",
                     "action": "walking",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "3809572c-2db5-45d6-b183-147580440736",
-                    "path": "<Keyboard>/d",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "walking",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e859e513-cbe5-4edd-b3cc-98aa56efe198",
-                    "path": "",
+                    "name": "left",
+                    "id": "7ce1c02e-8189-4dbc-9524-4ba21902748d",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "walking",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "e9b82087-23af-4fb2-a284-ba44ad6e5cb5",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "walking",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6275b976-672b-4f36-9043-3cd05ac4f867",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
                     "action": "sprinting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "9365121c-bf88-4e10-b90e-c4e3ea5f5ee8",
-                    "path": "",
+                    "id": "62c1c2d7-f46b-4f4c-a455-9e6255014bf8",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard and Mouse",
                     "action": "jumping",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -125,34 +147,35 @@
                     "isPartOfComposite": false
                 }
             ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard and Mouse",
+            "bindingGroup": "Keyboard and Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
         },
         {
-            "name": "Combat",
-            "id": "fd3b3637-cecb-4ba1-b4b9-ad120f21f61d",
-            "actions": [
+            "name": "GamePad",
+            "bindingGroup": "GamePad",
+            "devices": [
                 {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "1b08fec1-b4ee-4b8f-a68b-84bbd955aeb6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "1b2e664e-ddea-40c7-84a2-2d008b3c36e5",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
                 }
             ]
         }
-    ],
-    "controlSchemes": []
+    ]
 }
