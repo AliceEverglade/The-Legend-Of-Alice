@@ -14,15 +14,19 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
     #region Movement Vars
-    public float movementSpeed = 3f;
+    public float movementSpeed = 30f;
     public float sprintSpeed;
-    public float sprintModifier = 2.3f;
-    public float jumpheight = 20f;
-    float jumpForce;
+    public float sprintModifier = 5f;
     float speedModifier;
+
+
     float turnSmoothTime = 0.1f;
     public Vector3 playerMovementVector;
     float turnSmoothVelocity;
+
+    float jumpForce;
+    public float jumpheight = 20f;
+    public bool isJumpPressed = false;
     #endregion
     #region Gravity Vars
 
@@ -42,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
     {
         InputMaster = new InputMaster();
         gravityDirection = Vector3.down;
+        InputMaster.Player.jumping.started += Jumping;
+        InputMaster.Player.jumping.canceled += Jumping;
     }
     // Start is called before the first frame update
     void Start()
@@ -60,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         walking = InputMaster.Player.walking;
         walking.Enable();
 
-        InputMaster.Player.jumping.performed += Jumping;
+        
         InputMaster.Player.jumping.Enable();
     }
     private void OnDisable()
@@ -125,17 +131,11 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Jumping
-    private void Jumping(InputAction.CallbackContext obj)
+    void Jumping(InputAction.CallbackContext context)
     {
         jumpForce = jumpheight / setGravity;
-        if (Input.GetKey(KeyCode.Space))
-        {
-            //add the jump force
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Debug.Log("jumpin has stoppeth");
-        }
+        isJumpPressed = context.ReadValueAsButton();
+        Debug.Log(isJumpPressed);
     }
 
 

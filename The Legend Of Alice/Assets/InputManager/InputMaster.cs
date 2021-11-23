@@ -139,10 +139,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""id"": ""7c1790f9-a51b-4114-bc13-6415a6c67d2d"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
+                    ""name"": ""look around"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""6826f542-7421-4730-ab53-e1b790fd8ff6"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2c7f2481-6076-4954-859b-d4d8381d19fc"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -151,11 +159,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c30a0048-edaa-43f1-ae19-db2c4850c1cc"",
-                    ""path"": """",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""look around"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dca15e47-10a7-4753-8971-2a3ac3514c4d"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -199,7 +218,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_jumping = m_Player.FindAction("jumping", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
-        m_Camera_Newaction = m_Camera.FindAction("New action", throwIfNotFound: true);
+        m_Camera_lookaround = m_Camera.FindAction("look around", throwIfNotFound: true);
+        m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -298,12 +318,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
     // Camera
     private readonly InputActionMap m_Camera;
     private ICameraActions m_CameraActionsCallbackInterface;
-    private readonly InputAction m_Camera_Newaction;
+    private readonly InputAction m_Camera_lookaround;
+    private readonly InputAction m_Camera_Zoom;
     public struct CameraActions
     {
         private @InputMaster m_Wrapper;
         public CameraActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Camera_Newaction;
+        public InputAction @lookaround => m_Wrapper.m_Camera_lookaround;
+        public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -313,16 +335,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_CameraActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnNewaction;
+                @lookaround.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnLookaround;
+                @lookaround.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnLookaround;
+                @lookaround.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnLookaround;
+                @Zoom.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @lookaround.started += instance.OnLookaround;
+                @lookaround.performed += instance.OnLookaround;
+                @lookaround.canceled += instance.OnLookaround;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
             }
         }
     }
@@ -353,6 +381,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     }
     public interface ICameraActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnLookaround(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
 }

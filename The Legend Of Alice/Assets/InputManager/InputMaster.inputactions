@@ -126,10 +126,18 @@
             "id": "7c1790f9-a51b-4114-bc13-6415a6c67d2d",
             "actions": [
                 {
-                    "name": "New action",
-                    "type": "Button",
+                    "name": "look around",
+                    "type": "PassThrough",
                     "id": "6826f542-7421-4730-ab53-e1b790fd8ff6",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Zoom",
+                    "type": "PassThrough",
+                    "id": "2c7f2481-6076-4954-859b-d4d8381d19fc",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -138,11 +146,22 @@
                 {
                     "name": "",
                     "id": "c30a0048-edaa-43f1-ae19-db2c4850c1cc",
-                    "path": "",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Keyboard and Mouse",
+                    "action": "look around",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dca15e47-10a7-4753-8971-2a3ac3514c4d",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
